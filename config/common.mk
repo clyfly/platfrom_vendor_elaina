@@ -5,7 +5,7 @@ $(call inherit-product, vendor/addons/config.mk)
 $(call inherit-product, vendor/pixel-framework/config.mk)
 $(call inherit-product, packages/services/VncFlinger/product.mk)
 
-PRODUCT_BRAND ?= Spark
+PRODUCT_BRAND ?= ElainaOS
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
@@ -27,6 +27,17 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.adb.secure=1
 # Disable extra StrictMode features on all non-engineering builds
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += persist.sys.strictmode.disable=true
 endif
+
+# Blurs
+ifeq ($(TARGET_SUPPORTS_BLUR),true)
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.sf.blurs_are_expensive=1 \
+    ro.surface_flinger.supports_background_blur=1
+endif
+
+# Disable blur on app-launch
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.launcher.blur.appLaunch=0
 
 # Backup Tool
 PRODUCT_COPY_FILES += \

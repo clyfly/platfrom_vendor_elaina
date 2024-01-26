@@ -15,22 +15,11 @@
 # limitations under the License.
 
 # Versioning System
-SPARK_NUM_VER_PRIMARY := 13
-SPARK_NUM_VER_SECONDARY := 9
+SPARK_NUM_VER_PRIMARY := 1
+SPARK_NUM_VER_SECONDARY := 0
 TARGET_PRODUCT_SHORT := $(subst spark_,,$(SPARK_BUILD_TYPE))
 
 SPARK_BUILD_TYPE ?= UNOFFICIAL
-
-# Only include Updater for official, weeklies, CI and nightly builds
-ifeq ($(filter-out OFFICIAL Official WEEKLIES NIGHTLY CI,$(SPARK_BUILD_TYPE)),)
-    PRODUCT_PACKAGES += \
-        Updates
-endif
-
-# Sign builds if building an official, weekly, CI and nightly build
-ifeq ($(filter-out OFFICIAL WEEKLIES NIGHTLY CI,$(SPARK_BUILD_TYPE)),)
-    PRODUCT_DEFAULT_DEV_CERTIFICATE := $(KEYS_LOCATION)
-endif
 
 # Set all versions
 BUILD_DATE := $(shell date -u +%Y%m%d)
